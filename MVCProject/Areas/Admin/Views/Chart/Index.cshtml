@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<head>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            $(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Admin/Chart/CategoryChart/',
+                    success: function (chartsdata) {
+
+                        var Data = chartsdata.jsonlist;
+                        var data = new google.visualization.DataTable();
+
+                        data.addColumn('string', 'categoryname');
+                        data.addColumn('number', 'categorycount');
+                        for (var i = 0; i < Data.length; i++) {
+                            data.addRow(
+                                [Data[i].categoryname, Data[i].categorycount],
+                            );
+                        }
+                        //data.addRows([
+                        //    ['Nitrogen', 1],
+                        //    ['Oxygen', 2],
+                        //    ['Other', 1]
+                        //]);
+
+                        var chart = new google.visualization.PieChart(document.getElementById('chartdiv'));
+
+                        chart.draw(data, {
+                            title: "Google Chart Art Projesi",
+                            position: "top",
+                            fontsize: "16px"
+                        });
+                    }
+                });
+            })
+        }
+    </script>
+</head>
+<div class="row">
+    <div class="col-lg-12">
+        <div id="chartdiv" style="width:800px;height:600px">
+            <h2>Chart</h2>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<EntityLayer.Concrete.Category>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/web/inspinia-gh-pages/css/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="sweetalert2.all.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/web/inspinia-gh-pages/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<section class="main-content-w3layouts-agileits">
+    <div class="container">
+
+        <h1>Kategori Listesi</h1>
+
+        <table class="table table-bordered">
+            <tr>
+                <td>#</td>
+                <td>Kategori Adı</td>
+                <td>Pasif Yap</td>
+                <td>Aktif Yap</td>
+                <td>Düzenle</td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>@item.ID</th>
+                    <td>@item.Name</td>
+                    <td>
+                        <a href="/Admin/Category/CategoryDelete/@item.ID" id="deleteBtn"
+                           class="btn btn-warning">Pasif Yap</a>
+                    </td>
+                    <td><a href="#" class="btn btn-success">Aktif Yap</a></td>
+                    <td><a href="#" class="btn btn-secondary">Düzenle</a></td>
+                </tr>
+            }
+        </table>
+        <a href="/Admin/Category/CategoryAdd" class="btn btn-success">Yeni Kategori</a>
+        <br />
+        <br />
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+    </div>
+    <script>
+        $("#deleteBtn").click(() => {
+            alert("?Silmek istediğinize emin misiniz?")
+        })
+        $("#deleteBtn").click(function () {
+            Swal.fire({
+                title: 'Silmek istediğinize emin misiniz?',
+                text: "Bunu geri alamazsınız!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, sil!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Silindi!',
+                        'Silme işlemi başarılı',
+                        'success'
+                    )
+                }
+            })
+        })
+    </script>
+</section>

@@ -1,0 +1,39 @@
+﻿@model UserUpdateViewModel
+@{
+    ViewData["Title"] = "WriterEditProfile";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Yazar Profile Bilgileri Düzenleme</h4>
+                <br />
+
+                <form method="post" class="forms-sample">
+                    <div class="form-group">
+                        <label for="exampleInputName1">Yazar Ad Soyad</label>
+                        <input type="text" class="form-control" asp-for="@Model.namesurname" />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail3">Kullanıcı Adı</label>
+                        <input type="text" class="form-control" asp-for="@Model.username" />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail3">Mail Adresi</label>
+                        <input type="text" class="form-control" asp-for="@Model.mail" />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail3">Yeni Şifreniz</label>
+                        <input type="text" class="form-control" asp-for="@Model.password" />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail3">Resim Yükle...</label>
+                        <input type="text" class="form-control" asp-for="@Model.imageurl" />
+                    </div>
+                    <button type="submit" class="btn btn-gradient-primary mr-2">Güncelle</button>
+                    <button class="btn btn-light">İptal</button>
+                </form>
+            </div>
+        </div>
+    </div>
